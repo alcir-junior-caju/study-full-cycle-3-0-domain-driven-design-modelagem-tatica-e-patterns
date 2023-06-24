@@ -44,3 +44,13 @@ Para quem quiser visualizar o projeto na IDE clique no teclado a tecla `ponto`, 
 #### Domain Driven Design: Aggregates
 - Um agregado é um conjunto de objetos associados que tratamos como uma unidade para o propósito de mudança de dados. (Evans, Eric);
 
+#### Domain Driven Design: Domain Services
+- Um serviço de domínio é uma operação sem estado que cumpre uma tarefa específica do domínio. Muitas vezes, a melhor indicação de que você deve criar um Serviço no modelo de domínio é quando a operação que você precisa executar parece não se encaixar como um método em um Aggregate ou um Value Object. (Vernon, Vaughn);
+- Quando um processo ou transformação significativa no domínio não for uma responsabilidade natural de uma Entity ou Value Object, adicione um Service. Defina a interface em baseada na linguagem do modelo de domínio e certifique-se de que o nome da operação faça parte do Ubiquitous Language. Torne o Service sem estado. (Evans, Eric);
+- Uma entidade pode realizar uma ação que vai afetar todas as entidades;
+- Como realizar uma operação em loter?;
+- Como calcular algo cuja as informações constam em mais de uma entidade?
+
+#### Domain Driven Design: Domain Services - Cuidados
+- Quando houver muitos Domain Services em seu projeto, Talvez, isso pode indicar que seus Aggregates estão anêmicos;
+- Domain Services são Stateless;
