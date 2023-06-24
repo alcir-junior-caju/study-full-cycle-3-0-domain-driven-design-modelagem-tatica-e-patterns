@@ -30,3 +30,13 @@ Para quem quiser visualizar o projeto na IDE clique no teclado a tecla `ponto`, 
 - Uma Entidade é algo único que é capaz de ser alterado de forma contínua durante um longo período de tempo. (Vernon Vaughn);
 - Uma entidade é algo que possuí uma continuidade em seu ciclo de vida e pode ser distinguida independente dos atributos que são importantes para a aplicação do usuário. Pode ser uma pessoa, cidade, carro, um ticket de loteria ou uma transação bancária. (Evans, Eric);
 - Entidade = Identidade;
+
+#### Domain Driven Design: Value Objects
+- Quando você se preocupa apenas com os atributos de um elemento de um model, classifique isso como um Value Object;
+- Trate o Value Object como imutável. (Evans, Eric);
+- Address;
+  - Street;
+  - City;
+  - State;
+  - Zip code;
+  - Number;
