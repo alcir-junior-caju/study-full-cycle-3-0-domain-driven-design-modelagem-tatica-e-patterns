@@ -40,3 +40,7 @@ Para quem quiser visualizar o projeto na IDE clique no teclado a tecla `ponto`, 
   - State;
   - Zip code;
   - Number;
+
+#### Domain Driven Design: Aggregates
+- Um agregado é um conjunto de objetos associados que tratamos como uma unidade para o propósito de mudança de dados. (Evans, Eric);
+
