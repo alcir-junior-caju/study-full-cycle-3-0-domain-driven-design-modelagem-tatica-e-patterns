@@ -6,7 +6,7 @@ export class Order {
   private _id: string;
   private _customerId: string;
   private _items: OrderItem[];
-  private  _total: number;
+  private _total: number;
 
   constructor(id: string, customerId: string, items: OrderItem[]) {
     this._id = id;
@@ -42,6 +42,11 @@ export class Order {
       throw new Error('Item quantity must be greater than 0');
     }
     return true;
+  }
+
+  addItem(item: OrderItem): void {
+    this._items.push(item);
+    this._total = this.total();
   }
 
   total(): number {

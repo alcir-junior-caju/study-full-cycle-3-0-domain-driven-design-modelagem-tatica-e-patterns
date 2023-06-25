@@ -69,4 +69,94 @@ describe('Order repository test', () => {
       ]
     });
   });
+
+  it('should update order', async () => {
+    const customerRepository = new CustomerRepository();
+    const customer = new Customer("customerId", "John Doe");
+    const address = new Address("street", 1, "city", "state", "zipCode");
+    customer.setAddress(address);
+    await customerRepository.create(customer);
+
+    const productRepository1 = new ProductRepository();
+    const product1 = new Product("productId1", "Product 1", 10);
+    await productRepository1.create(product1);
+
+    const orderItem1 = new OrderItem(
+      "orderItemId1",
+      product1.name,
+      product1.price,
+      2,
+      product1.id
+    );
+
+    const order = new Order("orderId1", customer.id, [orderItem1]);
+
+    const orderRepository = new OrderRepository();
+    await orderRepository.create(order);
+
+    const orderModel = await OrderModel.findOne({
+      where: { id: order.id },
+      include: ["items"]
+    });
+
+    expect(orderModel.toJSON()).toStrictEqual({
+      id: "orderId1",
+      customer_id: "customerId",
+      total: order.total(),
+      items: [
+        {
+          id: orderItem1.id,
+          name: orderItem1.name,
+          price: orderItem1.price,
+          quantity: orderItem1.quantity,
+          order_id: "orderId1",
+          product_id: "productId1"
+        }
+      ]
+    });
+
+    const productRepository2 = new ProductRepository();
+    const product2 = new Product("productId2", "Product 2", 20);
+    await productRepository2.create(product2);
+
+    const orderItem2 = new OrderItem(
+      "orderItemId2",
+      product2.name,
+      product2.price,
+      1,
+      product2.id
+    );
+
+    order.addItem(orderItem2);
+    await orderRepository.update(order);
+
+    const orderModelUpdated = await OrderModel.findOne({
+      where: { id: "orderId1" },
+      include: ["items"]
+    });
+
+    expect(orderModelUpdated.toJSON()).toStrictEqual({
+      id: "orderId1",
+      customer_id: "customerId",
+      total: order.total(),
+      items: [
+        {
+          id: orderItem1.id,
+          name: orderItem1.name,
+          price: orderItem1.price,
+          quantity: orderItem1.quantity,
+          order_id: "orderId1",
+          product_id: "productId1"
+        },
+        {
+          id: orderItem2.id,
+          name: orderItem2.name,
+          price: orderItem2.price,
+          quantity: orderItem2.quantity,
+          order_id: "orderId1",
+          product_id: "productId2"
+        }
+      ]
+    });
+  });
 });
