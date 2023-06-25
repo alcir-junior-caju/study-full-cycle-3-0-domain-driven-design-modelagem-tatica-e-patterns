@@ -54,3 +54,7 @@ Para quem quiser visualizar o projeto na IDE clique no teclado a tecla `ponto`, 
 #### Domain Driven Design: Domain Services - Cuidados
 - Quando houver muitos Domain Services em seu projeto, Talvez, isso pode indicar que seus Aggregates estão anêmicos;
 - Domain Services são Stateless;
+
+#### Domain Driven Design: Repositories
+- Um repositório comumente se refere a um local de armazenamento, geralmente considerado um local de segurança ou preservação dos itens nele armazenados. Quando você armazena algo em um repositório e depois retorna para recuperá-lo, você espera que ele esteja no mesmo estado que estava quando você o colocou lá. Em algum momento, você pode optar por remover o item armazenado do repositório.(Vernon, Vaughn);
+- Esses objetos semelhantes a coleções são sobre persistência. Todo tipo Agregado persistente terá um Repository. De um modo geral, existe uma relação um-para-um entre um tipo Agregado e um Repositório.(Vernon, Vaughn);
