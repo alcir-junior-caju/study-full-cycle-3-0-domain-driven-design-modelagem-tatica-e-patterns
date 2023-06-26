@@ -1,3 +1,4 @@
+import { CustomerCreatedEvent, EventDispatcher, SendEmailCustomerIsCreatedHandler, SendQueueCustomerIsCreatedHandler } from "../event";
 import { Address } from "./Address";
 import { Customer } from "./Customer";
 
@@ -52,5 +53,29 @@ describe('Customer unit tests', () => {
 
     customer.addRewardPoints(10);
     expect(customer.rewardPoints).toBe(20);
+  });
+
+  it('should notify event handlers when customer is created', () => {
+    const eventDispatcher = new EventDispatcher();
+    const eventHandlerSendEmail = new SendEmailCustomerIsCreatedHandler();
+    const eventHandlerSendQueue = new SendQueueCustomerIsCreatedHandler();
+    const spyEventHandlerSendEmail = jest.spyOn(eventHandlerSendEmail, 'handle');
+    const spyEventHandlerSendQueue = jest.spyOn(eventHandlerSendQueue, 'handle');
+
+    eventDispatcher.register('CustomerCreatedEvent', eventHandlerSendEmail);
+    eventDispatcher.register('CustomerCreatedEvent', eventHandlerSendQueue);
+
+    expect(eventDispatcher.getEventHandlers['CustomerCreatedEvent'][0]).toMatchObject(eventHandlerSendEmail);
+    expect(eventDispatcher.getEventHandlers['CustomerCreatedEvent'][1]).toMatchObject(eventHandlerSendQueue);
+
+    const customerCreatedEvent = new CustomerCreatedEvent({
+      id: "customerId",
+      name: "John Doe",
+    });
+
+    eventDispatcher.notify(customerCreatedEvent);
+
+    expect(spyEventHandlerSendEmail).toHaveBeenCalledTimes(1);
+    expect(spyEventHandlerSendQueue).toHaveBeenCalledTimes(1);
   });
 });
