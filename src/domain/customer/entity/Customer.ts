@@ -10,8 +10,7 @@
 // -----------------------------------
 // Entidade Anêmica
 
-import { Address } from "../../address";
-
+import { Address } from "../valueObject";
 
 export class Customer {
   private _id: string;

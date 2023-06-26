@@ -1,5 +1,4 @@
-import { Address } from "../../domain/address";
-import { Customer, CustomerInterface } from "../../domain/customer";
+import { Address, Customer, CustomerInterface } from "../../domain/customer";
 import { CustomerModel } from "../db/sequelize/model";
 
 

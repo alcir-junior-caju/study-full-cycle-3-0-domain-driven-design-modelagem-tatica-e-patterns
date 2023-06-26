@@ -3,8 +3,7 @@ import { CustomerModel, OrderItemModel, OrderModel, ProductModel } from "../db/s
 import { CustomerRepository } from "./CustomerRepository";
 import { ProductRepository } from "./ProductRepository";
 import { OrderRepository } from "./OrderRepository";
-import { Customer } from "../../domain/customer";
-import { Address } from "../../domain/address";
+import { Address, Customer } from "../../domain/customer";
 import { Product } from "../../domain/product";
 import { Order, OrderItem } from "../../domain/checkout";
 

@@ -1,7 +1,7 @@
 
 import { EventDispatcher } from "../../@shared";
-import { Address } from "../../address";
 import { CustomerCreatedEvent, CustomerSetAddressEvent, SendEmailCustomerIsCreatedHandler, SendEmailCustomerSetAddressHandler, SendQueueCustomerIsCreatedHandler } from "../event";
+import { Address } from "../valueObject";
 import { Customer } from "./Customer";
 
 describe('Customer unit tests', () => {

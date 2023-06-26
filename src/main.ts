@@ -1,6 +1,5 @@
-import { Address } from "./domain/address";
 import { Order, OrderItem } from "./domain/checkout";
-import { Customer } from "./domain/customer";
+import { Address, Customer } from "./domain/customer";
 
 // Customer Aggregate - ID
 let customer = new Customer("1", "John Doe");
