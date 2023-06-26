@@ -58,3 +58,26 @@ Para quem quiser visualizar o projeto na IDE clique no teclado a tecla `ponto`, 
 #### Domain Driven Design: Repositories
 - Um repositório comumente se refere a um local de armazenamento, geralmente considerado um local de segurança ou preservação dos itens nele armazenados. Quando você armazena algo em um repositório e depois retorna para recuperá-lo, você espera que ele esteja no mesmo estado que estava quando você o colocou lá. Em algum momento, você pode optar por remover o item armazenado do repositório.(Vernon, Vaughn);
 - Esses objetos semelhantes a coleções são sobre persistência. Todo tipo Agregado persistente terá um Repository. De um modo geral, existe uma relação um-para-um entre um tipo Agregado e um Repositório.(Vernon, Vaughn);
+
+#### Domain Driven Design: Domain Events
+- Use um evento de domínio para capturar uma ocorrência de algo que aconteceu no domínio. (Vernon, Vaughn);
+- A essência de um evento de domínio é que você o usa para capturar coisas que podem desencadear uma mudança no estado do aplicativo que você está desenvolvendo. Esses objetos são processados para causar alterações no sistema e armazenados para fornecer um AuditLog.(Fowler, Martin);
+- Todo ecento deve ser representado em uma ação realizada no passado:
+  - UserCreated;
+  - OrderPlaced;
+  - EmailSent;
+
+#### Domain Driven Design: Domain Events - Quando utilizar?
+- Normalmente um Domain Event deve ser utilizado quando queremos notificar outros Bounded Contexts de uma mudança de estado;
+
+#### Domain Driven Design: Domain Events - Components
+- Event;
+- Handler: Executa o processamento quando um evento é chamado;
+- Event Dispatcher: Responsável por armazenar e executar os handlers de um evento quando ele for disparado;
+
+#### Domain Driven Design: Domain Events - Dinâmica
+- Criar um Event Dispatcher;
+- Criar um Event;
+- Criar um Handler para o Event;
+- Registrar o Event, juntamente com o Handler no Event Dispatcher;
+- Agora para disparar um Event, basta executar o método `notify` do Event Dispatcher. Nesse momento todos os Handlers registrados no evento serão executados;
