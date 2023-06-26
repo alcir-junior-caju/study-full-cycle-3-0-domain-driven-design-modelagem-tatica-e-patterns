@@ -1,4 +1,4 @@
-import { CustomerCreatedEvent, EventDispatcher, SendEmailCustomerIsCreatedHandler, SendQueueCustomerIsCreatedHandler } from "../event";
+import { CustomerCreatedEvent, CustomerSetAddressEvent, EventDispatcher, SendEmailCustomerIsCreatedHandler, SendEmailCustomerSetAddressHandler, SendQueueCustomerIsCreatedHandler } from "../event";
 import { Address } from "./Address";
 import { Customer } from "./Customer";
 
@@ -68,14 +68,33 @@ describe('Customer unit tests', () => {
     expect(eventDispatcher.getEventHandlers['CustomerCreatedEvent'][0]).toMatchObject(eventHandlerSendEmail);
     expect(eventDispatcher.getEventHandlers['CustomerCreatedEvent'][1]).toMatchObject(eventHandlerSendQueue);
 
-    const customerCreatedEvent = new CustomerCreatedEvent({
-      id: "customerId",
-      name: "John Doe",
-    });
+    const customer = new Customer('123', 'John Doe');
+
+    const customerCreatedEvent = new CustomerCreatedEvent(customer);
 
     eventDispatcher.notify(customerCreatedEvent);
 
     expect(spyEventHandlerSendEmail).toHaveBeenCalledTimes(1);
     expect(spyEventHandlerSendQueue).toHaveBeenCalledTimes(1);
+  });
+
+  it('should notify event handlers when set address', () => {
+    const eventDispatcher = new EventDispatcher();
+    const eventHandler = new SendEmailCustomerSetAddressHandler();
+    const spyEventHandler = jest.spyOn(eventHandler, 'handle');
+
+    eventDispatcher.register('CustomerSetAddressEvent', eventHandler);
+
+    expect(eventDispatcher.getEventHandlers['CustomerSetAddressEvent'][0]).toMatchObject(eventHandler);
+
+    const customer = new Customer('123', 'John Doe');
+    const address = new Address("Street 1", 100, "City 1", "State 1", "ZipCode 1");
+    customer.setAddress(address);
+
+    const customerSetAddressEvent = new CustomerSetAddressEvent(customer);
+
+    eventDispatcher.notify(customerSetAddressEvent);
+
+    expect(spyEventHandler).toHaveBeenCalledTimes(1);
   });
 });
